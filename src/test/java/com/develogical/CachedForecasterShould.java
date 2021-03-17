@@ -15,11 +15,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 public class CachedForecasterShould {
+
     @Test
     public void cachedForecasterShouldDelegateToRealForecaster() {
         Forecaster forecaster =  mock(Forecaster.class);
         given(forecaster.forecastFor(Region.LONDON, Day.MONDAY)).willReturn(new Forecast("testText",22));
-        Forecast londonForecast = new CachedForecaster(forecaster, null).forecastFor(Region.LONDON, Day.MONDAY);
+        Forecast londonForecast = new CachedForecaster(forecaster).forecastFor(Region.LONDON, Day.MONDAY);
         assertThat(londonForecast.summary(), equalTo("testText"));
         assertThat(londonForecast.temperature(), equalTo(22));
     }
@@ -28,7 +29,7 @@ public class CachedForecasterShould {
     public void getFromCacheIfSeenBefore() {
         Forecaster forecaster =  mock(Forecaster.class);
         given(forecaster.forecastFor(Region.LONDON, Day.MONDAY)).willReturn(new Forecast("testText",22));
-        CachedForecaster underTest = new CachedForecaster(forecaster, null);
+        CachedForecaster underTest = new CachedForecaster(forecaster);
 
         Forecast londonForecastFirst = underTest.forecastFor(Region.LONDON, Day.MONDAY);
         Forecast londonForecastSecond = underTest.forecastFor(Region.LONDON, Day.MONDAY);
