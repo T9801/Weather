@@ -2,14 +2,13 @@ package com.develogical;
 
 import com.weather.Day;
 import com.weather.Forecast;
-import com.weather.Forecaster;
 import com.weather.Region;
 
 import java.util.HashMap;
 
-public class CachedForecaster implements ForecasterTemplate {
+public class CachedForecaster implements WeatherForecaster {
 
-    private Forecaster forecaster;
+    private WeatherForecaster forecaster;
     HashMap<RegionAndDay, Forecast> forecastCache;
 
     private class RegionAndDay {
@@ -33,7 +32,7 @@ public class CachedForecaster implements ForecasterTemplate {
 
     }
 
-    public CachedForecaster(Forecaster f) {
+    public CachedForecaster(WeatherForecaster f) {
         this.forecaster = f;
         forecastCache = new HashMap<RegionAndDay, Forecast>();
     }

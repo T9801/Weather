@@ -18,7 +18,7 @@ public class CachedForecasterShould {
 
     @Test
     public void cachedForecasterShouldDelegateToRealForecaster() {
-        Forecaster forecaster =  mock(Forecaster.class);
+        WeatherForecaster forecaster =  mock(WeatherForecaster.class);
         given(forecaster.forecastFor(Region.LONDON, Day.MONDAY)).willReturn(new Forecast("testText",22));
         Forecast londonForecast = new CachedForecaster(forecaster).forecastFor(Region.LONDON, Day.MONDAY);
         assertThat(londonForecast.summary(), equalTo("testText"));
@@ -27,7 +27,7 @@ public class CachedForecasterShould {
 
     @Test
     public void getFromCacheIfSeenBefore() {
-        Forecaster forecaster =  mock(Forecaster.class);
+        WeatherForecaster forecaster =  mock(WeatherForecaster.class);
         given(forecaster.forecastFor(Region.LONDON, Day.MONDAY)).willReturn(new Forecast("testText",22));
         CachedForecaster underTest = new CachedForecaster(forecaster);
 
